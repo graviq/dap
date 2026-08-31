@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/tokens/colors.css">
+<link rel="stylesheet" href="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/tokens/typography.css">
+<link rel="stylesheet" href="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/tokens/effects.css">
+<link rel="stylesheet" href="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/styles.css">
+<script src="_ds/graviq-design-system-bd9577b8-fded-453d-9745-333ee5e41b7e/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;padding:0;background:var(--surface-canvas)}
+a{color:var(--text-link);text-decoration:none}
+a:hover{color:var(--text-link-hover)}
+*{box-sizing:border-box}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--charcoal-200);border-radius:9px}
+</style>
+</helmet>
+
+<div style="height:100vh;overflow:hidden;font-family:var(--font-body);color:var(--text-primary);background:var(--surface-canvas);position:relative">
+
+<sc-if value="{{ atLogin }}" hint-placeholder-val="{{ true }}">
+<div style="height:100vh;display:flex;align-items:center;justify-content:center;background:var(--charcoal-900)">
+<div style="width:900px;max-width:94vw;display:grid;grid-template-columns:1.1fr .9fr;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lg)">
+<div style="padding:48px 44px;background:var(--charcoal-800);color:var(--text-inverse);display:flex;flex-direction:column;gap:24px">
+<div style="font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.02em">GRAV<span style="color:var(--teal-300)">.Q</span></div>
+<div style="font-family:var(--font-display);font-size:30px;line-height:1.15;font-weight:700;text-wrap:pretty">Every physical asset gets a Digital Asset Passport.</div>
+<div style="font-size:14px;line-height:1.6;color:var(--charcoal-200);max-width:38ch">Design → Construction → QA/QC → Commissioning → Handover → Operations → Maintenance. One asset. One passport. One continuous digital thread.</div>
+<div style="margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--teal-200)">
+<span style="padding:4px 9px;border:1px solid var(--charcoal-600);border-radius:99px">DAP</span>
+<span style="padding:4px 9px;border:1px solid var(--charcoal-600);border-radius:99px">Spatial intelligence</span>
+<span style="padding:4px 9px;border:1px solid var(--charcoal-600);border-radius:99px">AI insights</span>
+<span style="padding:4px 9px;border:1px solid var(--charcoal-600);border-radius:99px">Workflow</span>
+</div>
+</div>
+<div style="padding:48px 40px;background:var(--surface-card);display:flex;flex-direction:column;gap:18px;justify-content:center">
+<div style="font-family:var(--font-display);font-size:20px;font-weight:700">Sign in</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Input" label="Email" placeholder="john.mercer@riversidetower.co" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Input" label="Password" type="password" placeholder="••••••••" hint-size="100%,64px"></x-import>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;flex-direction:column;align-items:stretch"><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ signIn }}" hint-size="100%,44px">Sign in</x-import></div>
+<div style="display:flex;flex-direction:column;align-items:stretch"><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" on-click="{{ signIn }}" hint-size="100%,44px">Continue with SSO</x-import></div>
+</div>
+<div style="font-size:12px;color:var(--text-secondary)">Forgot password?</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ inApp }}">
+<div style="height:100vh;display:flex;flex-direction:column">
+
+<header style="height:56px;flex:none;background:var(--charcoal-900);color:var(--text-inverse);display:flex;align-items:center;gap:20px;padding:0 20px">
+<div style="font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:-.02em;cursor:pointer" onClick="{{ goHome }}">GRAV<span style="color:var(--teal-300)">.Q</span></div>
+<div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;background:var(--charcoal-800);font-size:13px;font-weight:600;cursor:pointer" onClick="{{ goBuilding }}">Riverside Tower <span style="opacity:.6">▼</span></div>
+<div style="flex:1;max-width:420px;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;background:var(--charcoal-800);border:1px solid var(--charcoal-700);font-size:13px;color:var(--charcoal-300);cursor:pointer" onClick="{{ openSearch }}">
+<span style="font-family:var(--font-mono);opacity:.6">⌕</span> Search assets, documents, issues…
+</div>
+<div style="margin-left:auto;display:flex;align-items:center;gap:14px;font-size:13px">
+<span style="cursor:pointer;padding:6px 12px;border-radius:8px;background:var(--teal-700);font-weight:600" onClick="{{ toggleAI }}">Ask Graviq</span>
+<span style="cursor:pointer;position:relative" onClick="{{ goHandover }}">Alerts <span style="position:absolute;top:-6px;right:-14px;background:var(--color-error);color:#fff;border-radius:99px;font-size:10px;padding:1px 5px;font-weight:700">6</span></span>
+<span style="opacity:.75">John Mercer ▼</span>
+</div>
+</header>
+
+<sc-if value="{{ guided }}" hint-placeholder-val="{{ true }}">
+<div style="flex:none;background:var(--surface-card);border-bottom:1px solid var(--border-default);padding:0 20px;display:flex;align-items:center;gap:6px;height:42px;overflow-x:auto">
+<span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary);text-transform:uppercase;flex:none;margin-right:6px">Demo path</span>
+<sc-for list="{{ steps }}" as="s" hint-placeholder-count="8">
+<div style="{{ s.style }}" onClick="{{ s.onClick }}">{{ s.label }}</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="flex:1;min-height:0;display:flex">
+
+<nav style="width:186px;flex:none;background:var(--charcoal-800);padding:14px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto">
+<sc-for list="{{ nav }}" as="n" hint-placeholder-count="10">
+<div style="{{ n.style }}" onClick="{{ n.onClick }}">{{ n.label }}</div>
+</sc-for>
+<div style="margin-top:auto;padding:10px 12px;font-family:var(--font-mono);font-size:10px;color:var(--charcoal-400);line-height:1.5">Riverside Tower<br>2,486 assets</div>
+</nav>
+
+<main style="flex:1;min-width:0;overflow:auto;padding:26px 30px 60px">
+
+<sc-if value="{{ atHome }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+<div>
+<div style="font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.02em">Good morning, John</div>
+<div style="font-size:14px;color:var(--text-secondary);margin-top:4px">Riverside Tower · London, UK · Construction phase</div>
+</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ goBuilding }}" hint-size="auto,44px">Open project</x-import>
+</div>
+
+<div style="padding:16px 18px;border-radius:var(--radius-lg);background:var(--teal-50);border:1px solid var(--border-brand);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<div style="flex:1;min-width:280px;font-size:14px;line-height:1.5;text-wrap:pretty"><strong>1 asset is blocking Level 3 handover.</strong> Graviq detected a possible installation defect on AHU-042 and flagged missing warranty evidence.</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goDapInsights }}" hint-size="auto,36px">Open AHU-042 passport</x-import>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="6">
+<div style="{{ k.style }}" onClick="{{ k.onClick }}">
+<div style="font-size:12px;color:var(--text-secondary);font-weight:600">{{ k.label }}</div>
+<div style="font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-.02em;margin-top:6px;color:{{ k.color }}">{{ k.value }}</div>
+<div style="font-size:11px;color:var(--text-tertiary);margin-top:2px">{{ k.sub }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:1.25fr .75fr;gap:16px;align-items:start">
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px">
+<div style="display:flex;align-items:baseline;justify-content:space-between"><div style="font-family:var(--font-display);font-size:17px;font-weight:600">Open issues</div><div style="font-size:12px;color:var(--text-secondary)">47 open · 6 critical</div></div>
+<div style="margin-top:14px;display:flex;flex-direction:column;gap:1px">
+<div style="display:grid;grid-template-columns:78px 1fr 96px 120px 78px;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);padding-bottom:8px;border-bottom:1px solid var(--border-default)"><span>Priority</span><span>Issue</span><span>Asset</span><span>Owner</span><span>Due</span></div>
+<sc-for list="{{ issues }}" as="i" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:78px 1fr 96px 120px 78px;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--border-default);font-size:13px;cursor:pointer" onClick="{{ i.onClick }}">
+<span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ i.tone }}" hint-size="auto,20px">{{ i.priority }}</x-import></span>
+<span style="text-wrap:pretty">{{ i.title }}</span>
+<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-brand)">{{ i.asset }}</span>
+<span style="color:var(--text-secondary)">{{ i.owner }}</span>
+<span style="color:var(--text-secondary)">{{ i.due }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Asset readiness</div>
+<div style="display:flex;height:12px;border-radius:99px;overflow:hidden;margin-top:14px">
+<div style="width:68%;background:var(--teal-500)"></div><div style="width:19%;background:var(--teal-200)"></div><div style="width:9%;background:var(--amber-400)"></div><div style="width:4%;background:var(--color-error)"></div>
+</div>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:7px;font-size:12.5px">
+<div style="display:flex;justify-content:space-between"><span>Complete</span><span style="font-family:var(--font-mono)">1,690</span></div>
+<div style="display:flex;justify-content:space-between"><span>In progress</span><span style="font-family:var(--font-mono)">472</span></div>
+<div style="display:flex;justify-content:space-between"><span>Missing information</span><span style="font-family:var(--font-mono)">224</span></div>
+<div style="display:flex;justify-content:space-between;color:var(--color-error)"><span>Critical</span><span style="font-family:var(--font-mono)">100</span></div>
+</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Recent activity</div>
+<div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:var(--text-secondary)">
+<div>AHU-042 inspected · 2h ago</div>
+<div>14 DAPs created from BIM · 5h ago</div>
+<div>NCR-102 closed · yesterday</div>
+<div>Pump-017 commissioning completed · yesterday</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atBuilding }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.06em">PROJECT OVERVIEW</div>
+<div style="font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.02em;margin-top:2px">Riverside Tower</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">London, UK · Construction phase · 2,486 assets</div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goMap }}" hint-size="auto,36px">View map</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goBim }}" hint-size="auto,36px">BIM vs reality</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goRegister }}" hint-size="auto,36px">Asset register</x-import>
+</div>
+</div>
+
+<div style="font-size:13px;color:var(--text-secondary);max-width:70ch;text-wrap:pretty">Pick a location to see the assets that live there. Every asset in Graviq carries its own passport — the project is just how you find it.</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:14px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:9px">Building</div>
+<sc-for list="{{ buildings }}" as="b" hint-placeholder-count="3"><div style="{{ b.style }}" onClick="{{ b.onClick }}">{{ b.label }}</div></sc-for>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:14px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:9px">Floor</div>
+<sc-for list="{{ floors }}" as="f" hint-placeholder-count="4"><div style="{{ f.style }}" onClick="{{ f.onClick }}">{{ f.label }}</div></sc-for>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:14px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:9px">Zone</div>
+<sc-for list="{{ zones }}" as="z" hint-placeholder-count="4"><div style="{{ z.style }}" onClick="{{ z.onClick }}">{{ z.label }}</div></sc-for>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:14px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:9px">Room</div>
+<sc-for list="{{ rooms }}" as="r" hint-placeholder-count="4"><div style="{{ r.style }}" onClick="{{ r.onClick }}">{{ r.label }}</div></sc-for>
+</div>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Assets in {{ selPath }}</div>
+<div style="font-size:12px;color:var(--text-secondary)">{{ filteredCount }} assets</div>
+</div>
+<div style="margin-top:14px;display:flex;flex-direction:column">
+<sc-for list="{{ filtered }}" as="a" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:96px 1fr 130px 100px 92px 60px;gap:12px;align-items:center;padding:13px 10px;border-radius:10px;font-size:13.5px;cursor:pointer;border-bottom:1px solid var(--border-default)" onClick="{{ a.onClick }}" style-hover="background:var(--charcoal-50)">
+<span style="font-family:var(--font-mono);font-size:12.5px;font-weight:600;color:var(--text-brand)">{{ a.id }}</span>
+<span>{{ a.name }}</span>
+<span style="color:var(--text-secondary)">{{ a.type }}</span>
+<span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ a.tone }}" hint-size="auto,20px">{{ a.status }}</x-import></span>
+<span style="font-family:var(--font-mono);font-size:12px">DAP {{ a.dap }}</span>
+<span style="color:{{ a.issueColor }};font-family:var(--font-mono);font-size:12px">{{ a.issues }} ⚑</span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atRegister }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:16px">
+<div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em">Asset register</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">2,486 assets · filtered to Building A, Level 3</div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="6"><div style="{{ c.style }}">{{ c.label }}</div></sc-for>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:8px 20px 16px">
+<div style="display:grid;grid-template-columns:96px 1fr 120px 120px 110px 88px 56px;gap:12px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);padding:14px 10px 10px;border-bottom:1px solid var(--border-default)"><span>Asset ID</span><span>Asset</span><span>Type</span><span>Location</span><span>Status</span><span>DAP</span><span>Issues</span></div>
+<sc-for list="{{ assets }}" as="a" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:96px 1fr 120px 120px 110px 88px 56px;gap:12px;align-items:center;padding:13px 10px;font-size:13.5px;cursor:pointer;border-bottom:1px solid var(--border-default)" onClick="{{ a.onClick }}" style-hover="background:var(--charcoal-50)">
+<span style="font-family:var(--font-mono);font-size:12.5px;font-weight:600;color:var(--text-brand)">{{ a.id }}</span>
+<span>{{ a.name }}</span>
+<span style="color:var(--text-secondary)">{{ a.type }}</span>
+<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary)">{{ a.loc }}</span>
+<span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ a.tone }}" hint-size="auto,20px">{{ a.status }}</x-import></span>
+<span style="font-family:var(--font-mono);font-size:12px">{{ a.dap }}</span>
+<span style="color:{{ a.issueColor }};font-family:var(--font-mono);font-size:12px">{{ a.issues }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atMap }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px">
+<div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em">Spatial view</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">Building A → Level 3 → Zone 4</div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px">
+<sc-for list="{{ layers }}" as="l" hint-placeholder-count="6"><div style="{{ l.style }}">{{ l.label }}</div></sc-for>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start">
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:18px">
+<div style="position:relative;height:420px;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--surface-sunken);overflow:hidden">
+<div style="position:absolute;left:6%;top:8%;width:34%;height:40%;border:1px solid var(--border-strong);border-radius:8px;background:var(--white);display:flex;align-items:flex-end;padding:8px;font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono)">OFFICE 3-01</div>
+<div style="position:absolute;left:44%;top:8%;width:26%;height:40%;border:1px solid var(--border-strong);border-radius:8px;background:var(--white);display:flex;align-items:flex-end;padding:8px;font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono)">ROOM 31</div>
+<div style="position:absolute;left:6%;top:54%;width:64%;height:38%;border:1.5px solid var(--teal-300);border-radius:8px;background:var(--teal-50);display:flex;align-items:flex-end;padding:8px;font-size:11px;color:var(--teal-700);font-family:var(--font-mono);font-weight:600">MECHANICAL ROOM — ZONE 4</div>
+<div style="position:absolute;left:74%;top:8%;width:20%;height:84%;border:1px solid var(--border-strong);border-radius:8px;background:var(--white);display:flex;align-items:flex-end;padding:8px;font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono)">RISER 3B</div>
+<div style="position:absolute;left:20%;top:70%;width:22px;height:22px;border-radius:99px;background:var(--color-error);border:3px solid #fff;box-shadow:var(--shadow-md);cursor:pointer" onClick="{{ openMapPin }}"></div>
+<div style="position:absolute;left:44%;top:74%;width:16px;height:16px;border-radius:99px;background:var(--teal-500);border:3px solid #fff"></div>
+<div style="position:absolute;left:56%;top:22%;width:16px;height:16px;border-radius:99px;background:var(--teal-500);border:3px solid #fff"></div>
+<div style="position:absolute;left:82%;top:40%;width:16px;height:16px;border-radius:99px;background:var(--amber-500);border:3px solid #fff"></div>
+<div style="position:absolute;right:12px;top:12px;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary)">FLOOR PLAN PLACEHOLDER — LINK BIM / PDF PLAN</div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="{{ mapPopStyle }}">
+<div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text-brand)">AHU-042</div>
+<div style="font-size:13px">Air Handling Unit · Mechanical Room</div>
+<div style="font-size:12.5px;color:var(--text-secondary);display:flex;flex-direction:column;gap:4px">
+<span>Condition: Good</span><span>DAP: {{ dapPct }}</span><span>Open issues: {{ openIssues }}</span>
+</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goDap }}" hint-size="auto,36px">View passport</x-import>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:18px;font-size:12.5px;color:var(--text-secondary);line-height:1.6">
+Red pin = asset with an open AI-detected issue. Click it to open the passport. Amber = missing information. Teal = complete.
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atBim }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:16px">
+<div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em">BIM vs reality</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">Building A → Level 3 → Zone 4 · captured 12 Apr 2026</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<div style="border:1.5px dashed var(--border-strong);border-radius:var(--radius-lg);height:320px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);text-align:center">BIM MODEL VIEWPORT<br>(IFC / Revit link)</div>
+<div style="border:1.5px dashed var(--border-strong);border-radius:var(--radius-lg);height:320px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);text-align:center">SITE REALITY CAPTURE<br>(360 scan / site photo)</div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" hint-size="auto,36px">Compare</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" hint-size="auto,36px">Show deviations</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="accent" size="sm" on-click="{{ goIssue }}" hint-size="auto,36px">Create issue</x-import>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:20px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">AI findings — 3 deviations detected</div>
+<div style="margin-top:12px;display:flex;flex-direction:column">
+<div style="display:grid;grid-template-columns:100px 1fr 110px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--border-default);font-size:13.5px;cursor:pointer" onClick="{{ goDapDesign }}"><span style="font-family:var(--font-mono);color:var(--text-brand);font-weight:600">AHU-042</span><span>Location deviation — installed 1.4 m from designed position</span><span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="warning" hint-size="auto,20px">Medium</x-import></span></div>
+<div style="display:grid;grid-template-columns:100px 1fr 110px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--border-default);font-size:13.5px"><span style="font-family:var(--font-mono);color:var(--text-brand);font-weight:600">Duct-031</span><span>Missing — modelled but not found on site</span><span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="error" hint-size="auto,20px">High</x-import></span></div>
+<div style="display:grid;grid-template-columns:100px 1fr 110px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--border-default);font-size:13.5px"><span style="font-family:var(--font-mono);color:var(--text-brand);font-weight:600">Pipe-107</span><span>Specification mismatch — DN80 installed, DN100 specified</span><span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="warning" hint-size="auto,20px">Medium</x-import></span></div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atDap }}">
+<div style="max-width:1180px;display:flex;flex-direction:column;gap:0">
+
+<div style="{{ readyBannerStyle }}">
+<div style="flex:1;min-width:260px;font-size:14px"><strong>AHU-042 is now ready for handover.</strong> The workflow closed NCR-118, evidence and the warranty certificate are attached, and the passport updated itself.</div>
+<div style="background:#fff;border-radius:var(--radius-md);display:inline-flex;flex:none">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goHandover }}" hint-size="auto,36px">See handover readiness</x-import>
+</div>
+</div>
+
+<div style="background:var(--charcoal-900);color:var(--text-inverse);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:24px 26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;color:var(--teal-300)">DIGITAL ASSET PASSPORT</div>
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+<div style="font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.02em">AHU-042</div>
+<div style="font-size:15px;color:var(--charcoal-200)">Air Handling Unit</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ statusTone }}" hint-size="auto,22px">{{ statusLabel }}</x-import>
+</div>
+<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--charcoal-200);flex-wrap:wrap;font-family:var(--font-mono)">
+<span>Building A</span><span style="opacity:.4">→</span><span>Floor 3</span><span style="opacity:.4">→</span><span>Zone 4</span><span style="opacity:.4">→</span><span style="color:var(--teal-200)">Mechanical Room</span>
+</div>
+<div style="display:flex;gap:26px;margin-top:6px;flex-wrap:wrap">
+<div><div style="font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;color:var(--charcoal-400)">MANUFACTURER</div><div style="font-size:13.5px;margin-top:2px">Carrier</div></div>
+<div><div style="font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;color:var(--charcoal-400)">MODEL / SERIAL</div><div style="font-size:13.5px;margin-top:2px">39MN-0842 · SN 7741-2209</div></div>
+<div><div style="font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;color:var(--charcoal-400)">INSTALLED</div><div style="font-size:13.5px;margin-top:2px">14 March 2026</div></div>
+<div><div style="font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;color:var(--charcoal-400)">WARRANTY</div><div style="font-size:13.5px;margin-top:2px">Active to 14 Mar 2031</div></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px">
+<div style="width:132px;height:132px;border-radius:16px;border:1.5px dashed var(--charcoal-600);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--font-mono);font-size:9.5px;color:var(--charcoal-400);line-height:1.5">ASSET PHOTO<br>PHOTO · 3D · BIM · LOCATION</div>
+<div style="text-align:right">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--charcoal-400)">DAP COMPLETENESS</div>
+<div style="font-family:var(--font-display);font-size:30px;font-weight:700;color:var(--teal-200);letter-spacing:-.02em">{{ dapPct }}</div>
+</div>
+</div>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-top:none;padding:12px 26px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goInspect }}" hint-size="auto,36px">Inspect</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goWorkflow }}" hint-size="auto,36px">Create workflow</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" hint-size="auto,36px">Upload evidence</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="ghost" size="sm" hint-size="auto,36px">Edit</x-import>
+<div style="margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)">{{ openIssues }} open issue · last inspected {{ lastInspected }}</div>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-top:none;padding:0 16px;overflow-x:auto">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Tabs" tabs="{{ dapTabs }}" active="{{ dapTab }}" on-change="{{ setDapTab }}" hint-size="100%,42px"></x-import>
+</div>
+
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px 26px;min-height:360px">
+
+<sc-if value="{{ tabOverview }}">
+<div style="display:grid;grid-template-columns:1.1fr .9fr;gap:26px">
+<div style="display:flex;flex-direction:column;gap:18px">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Completeness by section</div>
+<div style="display:flex;flex-direction:column;gap:11px">
+<sc-for list="{{ completeness }}" as="c" hint-placeholder-count="7">
+<div style="display:grid;grid-template-columns:126px 1fr 46px;gap:12px;align-items:center;font-size:13px">
+<span>{{ c.label }}</span>
+<span style="height:8px;border-radius:99px;background:var(--charcoal-100);overflow:hidden;display:block"><span style="display:block;height:8px;background:{{ c.color }};width:{{ c.pct }}"></span></span>
+<span style="font-family:var(--font-mono);font-size:12px;text-align:right;color:var(--text-secondary)">{{ c.pct }}</span>
+</div>
+</sc-for>
+</div>
+<div style="{{ missingInfoStyle }}">
+<strong>Missing information:</strong> warranty certificate (Carrier) and 1 unverified installation photo.
+<div style="margin-top:10px"><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="accent" size="sm" on-click="{{ goDapInsights }}" hint-size="auto,36px">Resolve missing data</x-import></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div style="padding:14px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Condition</div><div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:4px">Good</div></div>
+<div style="padding:14px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Criticality</div><div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:4px">High</div></div>
+<div style="padding:14px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Risk</div><div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:4px;color:{{ riskColor }}">{{ riskLabel }}</div></div>
+<div style="padding:14px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Lifecycle stage</div><div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-top:4px">{{ stageLabel }}</div></div>
+</div>
+<div style="padding:16px;border:1px solid var(--border-default);border-radius:12px;font-size:13px;line-height:1.6;color:var(--text-secondary)">
+This passport was created from the BIM model on 02 Feb 2026 and has since accumulated 8 documents, 3 inspections, 12 photographs and 1 commissioning certificate. It survives handover into operations.
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabSpecs }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+<sc-for list="{{ specs }}" as="s" hint-placeholder-count="8">
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary)">{{ s.k }}</div>
+<div style="font-size:14.5px;margin-top:4px">{{ s.v }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabDesign }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Design references</div>
+<div style="font-size:13.5px;display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>BIM reference</span><span style="font-family:var(--font-mono);font-size:12.5px;color:var(--text-brand)">IFC · GUID 2xR8f…A41</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Drawing</span><span style="font-family:var(--font-mono);font-size:12.5px;color:var(--text-brand)">M-303 rev C</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Specification</span><span style="font-family:var(--font-mono);font-size:12.5px;color:var(--text-brand)">MEP-SPEC-HVAC-04</span></div>
+<div style="display:flex;justify-content:space-between"><span>Design airflow</span><span style="font-family:var(--font-mono);font-size:12.5px">4,200 l/s</span></div>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">BIM vs reality</div>
+<div style="padding:14px 16px;border-radius:12px;background:var(--amber-50);border:1px solid var(--amber-200);font-size:13px;line-height:1.55">Location deviation of 1.4 m detected between the model and the site capture on 12 Apr 2026.</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goBim }}" hint-size="auto,36px">Open split view</x-import>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabConstruction }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="display:flex;flex-direction:column;gap:9px;font-size:13.5px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:4px">Construction record</div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Supplier</span><span>Carrier UK</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Installer</span><span>Meridian MEP Ltd</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Installation date</span><span>14 March 2026</span></div>
+<div style="display:flex;justify-content:space-between"><span>QA/QC status</span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ statusTone }}" hint-size="auto,20px">{{ qaLabel }}</x-import></div>
+</div>
+<div>
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px">Installation evidence</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+<div style="height:92px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">PHOTO 1</div>
+<div style="height:92px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">PHOTO 2</div>
+<div style="height:92px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">PHOTO 3</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabCommissioning }}">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Commissioning</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Status</div><div style="font-family:var(--font-display);font-size:18px;font-weight:700;margin-top:4px">Complete</div></div>
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Certificate</div><div style="font-family:var(--font-mono);font-size:13px;margin-top:6px;color:var(--text-brand)">CX-4471.pdf</div></div>
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Accepted by</div><div style="font-size:14px;margin-top:6px">S. Okafor · 03 Apr 2026</div></div>
+</div>
+<div style="font-size:13.5px;display:flex;flex-direction:column;gap:9px;margin-top:6px">
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Airflow test</span><span style="font-family:var(--font-mono);font-size:12.5px">4,180 l/s — pass</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Sound level</span><span style="font-family:var(--font-mono);font-size:12.5px">62 dB(A) — pass</span></div>
+<div style="display:flex;justify-content:space-between"><span>Controls integration</span><span style="font-family:var(--font-mono);font-size:12.5px">BMS point list verified — pass</span></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabMaintenance }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+<div style="display:flex;flex-direction:column;gap:9px;font-size:13.5px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:4px">Schedule</div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Interval</span><span>Quarterly (PPM-HVAC-02)</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border-default)"><span>Last service</span><span>—</span></div>
+<div style="display:flex;justify-content:space-between"><span>Next service</span><span>03 Jul 2026</span></div>
+</div>
+<div>
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px">Work orders</div>
+<div style="font-size:13px;color:var(--text-secondary);line-height:1.6">No operational work orders yet — this asset is still in the construction phase. Work orders raised after handover will attach to this same passport.</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabDocuments }}">
+<div style="display:flex;flex-direction:column">
+<div style="display:grid;grid-template-columns:1fr 150px 110px 110px;gap:12px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-tertiary);padding-bottom:10px;border-bottom:1px solid var(--border-default)"><span>Document</span><span>Type</span><span>Added</span><span>Status</span></div>
+<sc-for list="{{ docs }}" as="d" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:1fr 150px 110px 110px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-default);font-size:13.5px">
+<span style="font-family:var(--font-mono);font-size:12.5px;color:{{ d.color }}">{{ d.name }}</span>
+<span style="color:var(--text-secondary)">{{ d.type }}</span>
+<span style="color:var(--text-secondary)">{{ d.added }}</span>
+<span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ d.tone }}" hint-size="auto,20px">{{ d.status }}</x-import></span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabEvidence }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Evidence — {{ evidenceCount }} items</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px">
+<sc-for list="{{ evidence }}" as="e" hint-placeholder-count="8">
+<div style="height:120px;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--surface-sunken);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary);text-align:center;padding:8px">
+<span style="font-size:16px;opacity:.4">▢</span>{{ e.label }}<span style="color:{{ e.color }}">{{ e.tag }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabHistory }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Lifecycle history</div>
+<div style="font-size:12.5px;color:var(--text-secondary)">Every action on this asset, from design to today</div>
+</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ history }}" as="h" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:118px 14px 1fr;gap:14px;align-items:start">
+<div style="font-family:var(--font-mono);font-size:11.5px;color:var(--text-secondary);padding-top:2px;text-align:right">{{ h.d }}</div>
+<div style="display:flex;flex-direction:column;align-items:center;height:100%"><span style="width:11px;height:11px;border-radius:99px;background:{{ h.dot }};margin-top:3px;flex:none"></span><span style="flex:1;width:1.5px;background:var(--border-default);min-height:26px"></span></div>
+<div style="padding-bottom:20px"><div style="font-size:14px;font-weight:600">{{ h.t }}</div><div style="font-size:12.5px;color:var(--text-secondary);margin-top:2px">{{ h.s }}</div></div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabAI }}">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">AI insights</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Condition</div><div style="font-family:var(--font-display);font-size:19px;font-weight:700;margin-top:4px">Good</div></div>
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Risk</div><div style="font-family:var(--font-display);font-size:19px;font-weight:700;margin-top:4px;color:{{ riskColor }}">{{ riskLabel }}</div></div>
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Confidence</div><div style="font-family:var(--font-display);font-size:19px;font-weight:700;margin-top:4px">{{ aiConfidence }}</div></div>
+<div style="padding:14px 16px;border:1px solid var(--border-default);border-radius:12px"><div style="font-size:11px;color:var(--text-secondary);font-weight:600">Open findings</div><div style="font-family:var(--font-display);font-size:19px;font-weight:700;margin-top:4px">{{ openIssues }}</div></div>
+</div>
+<sc-for list="{{ insights }}" as="v" hint-placeholder-count="2">
+<div style="{{ v.style }}">
+<div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ v.tone }}" hint-size="auto,20px">{{ v.kind }}</x-import><div style="font-size:15px;font-weight:600">{{ v.title }}</div></div>
+<div style="font-size:13.5px;line-height:1.6;color:var(--text-secondary);margin-top:8px;max-width:78ch;text-wrap:pretty">{{ v.body }}</div>
+<div style="font-size:13px;margin-top:10px"><strong>Recommended action:</strong> {{ v.action }}</div>
+<div style="{{ v.ctaStyle }}">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goInspect }}" hint-size="auto,36px">Inspect now</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goIssue }}" hint-size="auto,36px">Raise issue</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="ghost" size="sm" hint-size="auto,36px">Dismiss</x-import>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ tabRel }}">
+<div style="display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:var(--font-display);font-size:17px;font-weight:600">Asset relationships</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px">Click any node to open its passport.</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0;padding:10px 0 20px">
+<div style="{{ relNodeStyle }}" onClick="{{ relOther }}">CHILLER-03<span style="display:block;font-size:10px;color:var(--text-secondary);font-family:var(--font-body)">Parent system</span></div>
+<div style="width:1.5px;height:26px;background:var(--border-strong)"></div>
+<div style="padding:14px 22px;border-radius:12px;border:2px solid var(--teal-500);background:var(--teal-50);font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--teal-700);text-align:center">AHU-042<span style="display:block;font-size:10px;font-weight:500;color:var(--teal-600);font-family:var(--font-body)">This asset</span></div>
+<div style="width:1.5px;height:26px;background:var(--border-strong)"></div>
+<div style="height:1.5px;width:66%;background:var(--border-strong)"></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:34px;width:66%">
+<div style="display:flex;flex-direction:column;align-items:center"><div style="width:1.5px;height:24px;background:var(--border-strong)"></div><div style="{{ relNodeStyle }}" onClick="{{ relOther }}">ZONE-04<span style="display:block;font-size:10px;color:var(--text-secondary);font-family:var(--font-body)">Location</span></div></div>
+<div style="display:flex;flex-direction:column;align-items:center"><div style="width:1.5px;height:24px;background:var(--border-strong)"></div><div style="{{ relNodeStyle }}" onClick="{{ relOther }}">ROOM-31<span style="display:block;font-size:10px;color:var(--text-secondary);font-family:var(--font-body)">Location</span></div></div>
+<div style="display:flex;flex-direction:column;align-items:center"><div style="width:1.5px;height:24px;background:var(--border-strong)"></div><div style="{{ relNodeStyle }}" onClick="{{ relOther }}">SENSOR-82<span style="display:block;font-size:10px;color:var(--text-secondary);font-family:var(--font-body)">Child asset</span></div></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+<div style="padding:13px 15px;border:1px solid var(--border-default);border-radius:12px;font-size:12.5px"><div style="font-weight:600;margin-bottom:4px">Connected systems</div><div style="color:var(--text-secondary)">BMS · Chilled water loop 2 · Fire damper circuit 3B</div></div>
+<div style="padding:13px 15px;border:1px solid var(--border-default);border-radius:12px;font-size:12.5px"><div style="font-weight:600;margin-bottom:4px">Related documents</div><div style="color:var(--text-secondary)">8 documents inherited from CHILLER-03</div></div>
+<div style="padding:13px 15px;border:1px solid var(--border-default);border-radius:12px;font-size:12.5px"><div style="font-weight:600;margin-bottom:4px">Related workflows</div><div style="color:var(--text-secondary)">{{ relWorkflows }}</div></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atInspect }}">
+<div style="max-width:900px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.06em">INSPECTION · FIELD TECHNICIAN</div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:2px">Inspect AHU-042</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">Mechanical Room · Level 3 · Checklist HVAC-INSP-02</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:22px;display:flex;flex-direction:column;gap:14px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Physical condition</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ checks }}" as="c" hint-placeholder-count="6">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Checkbox" label="{{ c.label }}" checked="{{ c.checked }}" on-change="{{ c.onChange }}" hint-size="100%,26px"></x-import>
+</sc-for>
+</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:22px;display:flex;flex-direction:column;gap:14px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Capture evidence</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+<div style="height:100px;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);cursor:pointer" onClick="{{ takePhoto }}">＋ TAKE PHOTO</div>
+<div style="height:100px;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary)">RECORD VIDEO</div>
+<div style="height:100px;border:1.5px dashed var(--border-strong);border-radius:12px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary)">ADD COMMENT</div>
+</div>
+<div style="{{ hintStyle }}">Take a photo of the supply connection — Graviq analyses it as soon as it lands.</div>
+<div style="{{ findingStyle }}">
+<div style="display:flex;gap:10px;align-items:center"><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="warning" hint-size="auto,20px">AI finding</x-import><span style="font-size:15px;font-weight:600">Possible corrosion around the supply connection</span></div>
+<div style="font-size:13.5px;line-height:1.6;color:var(--text-secondary);max-width:76ch;text-wrap:pretty">Image analysis of PHOTO-4 shows discolouration and surface pitting consistent with installation-related corrosion at the flexible connection. Similar pattern found on 3 other Meridian MEP installations on Level 3.</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goIssue }}" hint-size="auto,36px">Accept finding</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" hint-size="auto,36px">Reject</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="ghost" size="sm" hint-size="auto,36px">Request review</x-import>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ goIssue }}" hint-size="auto,44px">Complete inspection</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="ghost" on-click="{{ goDap }}" hint-size="auto,44px">Back to passport</x-import>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atIssue }}">
+<div style="max-width:840px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.06em">NEW ISSUE · PRE-FILLED BY GRAVIQ</div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:2px">Raise issue on AHU-042</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Select" label="Issue type" value="Defect" options="{{ issueTypes }}" hint-size="100%,68px"></x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Select" label="Severity" value="High" options="{{ severities }}" hint-size="100%,68px"></x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Input" label="Asset" value="AHU-042 — Air Handling Unit" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Input" label="Location" value="Mechanical Room — Level 3" hint-size="100%,64px"></x-import>
+<div style="grid-column:1/-1;display:flex;flex-direction:column;gap:6px">
+<span style="font-size:13px;font-weight:500">Description <span style="color:var(--text-brand);font-weight:600">· AI generated</span></span>
+<div style="border:1px solid var(--border-strong);border-radius:var(--radius-md);padding:12px 14px;font-size:13.5px;line-height:1.6;background:var(--surface-sunken);text-wrap:pretty">Surface corrosion and pitting identified at the flexible supply connection of AHU-042 during inspection on 12 Apr 2026. Likely installation-related. Recommend removal of corrosion, re-sealing of the connection and re-inspection before handover.</div>
+</div>
+<div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<div style="height:80px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">PHOTO-4</div>
+<div style="height:80px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">PHOTO-5</div>
+<div style="height:80px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">CLOSE-UP</div>
+<div style="height:80px;border:1.5px dashed var(--border-strong);border-radius:10px;background:var(--surface-sunken);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary)">＋ ADD</div>
+</div>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Select" label="Assign to" value="Meridian MEP Ltd" options="{{ assignees }}" hint-size="100%,68px"></x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Input" label="Due date" value="19 Apr 2026" hint-size="100%,64px"></x-import>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ startWorkflow }}" hint-size="auto,44px">Create issue &amp; start workflow</x-import>
+<span style="font-size:12.5px;color:var(--text-secondary)">Graviq matched this to workflow template <strong>AHU defect resolution</strong>.</span>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atWorkflow }}">
+<div style="max-width:1000px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap">
+<div>
+<div style="font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.06em">WORKFLOW · NCR-118</div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:2px">AHU defect resolution</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">Linked passport: <span style="font-family:var(--font-mono);color:var(--text-brand);cursor:pointer" onClick="{{ goDap }}">AHU-042</span></div>
+</div>
+<div style="text-align:right">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--text-tertiary)">SLA</div>
+<div style="font-family:var(--font-display);font-size:20px;font-weight:700">{{ slaLabel }}</div>
+</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px">
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ stages }}" as="s" hint-placeholder-count="8">
+<div style="display:grid;grid-template-columns:22px 1fr 150px 96px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border-default)">
+<span style="width:20px;height:20px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:{{ s.dotBg }};color:{{ s.dotFg }};border:1.5px solid {{ s.dotBorder }}">{{ s.mark }}</span>
+<span style="font-size:14px;font-weight:{{ s.weight }};color:{{ s.fg }}">{{ s.name }}</span>
+<span style="font-size:12.5px;color:var(--text-secondary)">{{ s.owner }}</span>
+<span>{{ s.badge }}</span>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ advance }}" hint-size="auto,44px">{{ advanceLabel }}</x-import>
+<span style="font-size:12.5px;color:var(--text-secondary)">{{ nextActionLabel }}</span>
+</div>
+</div>
+<div style="font-size:12.5px;color:var(--text-secondary);max-width:80ch;text-wrap:pretty">Every stage writes its evidence back to the passport — that is the point. When the workflow closes, AHU-042's history, completeness score and handover status change without anyone updating a spreadsheet.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ atHandover }}">
+<div style="max-width:1080px;display:flex;flex-direction:column;gap:18px">
+<div>
+<div style="font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.02em">Handover readiness</div>
+<div style="font-size:13.5px;color:var(--text-secondary)">Riverside Tower · Level 3 · 2,486 assets</div>
+</div>
+<div style="display:grid;grid-template-columns:280px 1fr;gap:16px;align-items:start">
+<div style="background:var(--charcoal-900);color:#fff;border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;gap:8px">
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--charcoal-400)">HANDOVER READY</div>
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-family:var(--font-display);font-size:52px;font-weight:700;letter-spacing:-.03em;color:var(--teal-200)">{{ handoverPct }}</div><div style="font-size:13px;color:{{ deltaColor }}">{{ deltaLabel }}</div></div>
+<div style="font-size:12.5px;color:var(--charcoal-200);line-height:1.55">{{ handoverNote }}</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:22px;display:flex;flex-direction:column;gap:12px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Breakdown</div>
+<sc-for list="{{ handoverBars }}" as="b" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:150px 1fr 44px;gap:12px;align-items:center;font-size:13px">
+<span>{{ b.label }}</span>
+<span style="height:8px;border-radius:99px;background:var(--charcoal-100);overflow:hidden;display:block"><span style="display:block;height:8px;background:{{ b.color }};width:{{ b.pct }}"></span></span>
+<span style="font-family:var(--font-mono);font-size:12px;text-align:right;color:var(--text-secondary)">{{ b.pct }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:22px">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600">Critical blockers</div>
+<div style="margin-top:12px;display:flex;flex-direction:column">
+<sc-for list="{{ blockers }}" as="b" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:1fr 110px 130px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--border-default);font-size:13.5px;cursor:pointer" onClick="{{ b.onClick }}">
+<span style="text-wrap:pretty">{{ b.label }}</span>
+<span><x-import component-from-global-scope="GraviqDesignSystem_bd9577.Badge" tone="{{ b.tone }}" hint-size="auto,20px">{{ b.sev }}</x-import></span>
+<span style="font-family:var(--font-mono);font-size:12px;color:var(--text-brand)">{{ b.action }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" on-click="{{ goDap }}" hint-size="auto,44px">Open AHU-042 passport</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" on-click="{{ goHome }}" hint-size="auto,44px">Generate handover package</x-import>
+</div>
+</div>
+</sc-if>
+
+</main>
+
+<sc-if value="{{ aiOpen }}">
+<aside style="width:352px;flex:none;background:var(--surface-card);border-left:1px solid var(--border-default);display:flex;flex-direction:column;overflow:auto">
+<div style="padding:16px 18px;border-bottom:1px solid var(--border-default);display:flex;align-items:center;justify-content:space-between">
+<div style="font-family:var(--font-display);font-size:15px;font-weight:600">Ask Graviq</div>
+<span style="cursor:pointer;color:var(--text-secondary);font-size:15px" onClick="{{ toggleAI }}">✕</span>
+</div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:14px">
+<div style="align-self:flex-end;max-width:88%;padding:11px 14px;border-radius:14px 14px 4px 14px;background:var(--charcoal-100);font-size:13px;text-wrap:pretty">Show me everything I need before handing over Level 3.</div>
+<div style="max-width:94%;padding:13px 15px;border-radius:14px 14px 14px 4px;background:var(--teal-50);border:1px solid var(--border-brand);font-size:13px;line-height:1.6;text-wrap:pretty">
+{{ aiAnswer }}
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="primary" size="sm" on-click="{{ goDapInsights }}" hint-size="auto,34px">View AHU-042</x-import>
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Button" variant="outline" size="sm" on-click="{{ goHandover }}" hint-size="auto,34px">Handover view</x-import>
+</div>
+</div>
+<div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--text-tertiary);margin-top:6px">SUGGESTED</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="padding:10px 12px;border:1px solid var(--border-default);border-radius:10px;font-size:12.5px;color:var(--text-secondary);cursor:pointer">Which critical assets are missing warranty information?</div>
+<div style="padding:10px 12px;border:1px solid var(--border-default);border-radius:10px;font-size:12.5px;color:var(--text-secondary);cursor:pointer">What defects are open in Building A?</div>
+<div style="padding:10px 12px;border:1px solid var(--border-default);border-radius:10px;font-size:12.5px;color:var(--text-secondary);cursor:pointer">Which assets have had repeated failures?</div>
+</div>
+</div>
+</aside>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}">
+<div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:50">
+<x-import component-from-global-scope="GraviqDesignSystem_bd9577.Toast" tone="{{ toastTone }}" on-dismiss="{{ clearToast }}" hint-size="auto,52px">{{ toast }}</x-import>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;guidedDemo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;home&quot;,&quot;building&quot;,&quot;register&quot;,&quot;map&quot;,&quot;bim&quot;,&quot;dap&quot;,&quot;inspect&quot;,&quot;issue&quot;,&quot;workflow&quot;,&quot;handover&quot;],&quot;default&quot;:&quot;login&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;resolvedFromStart&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+const HIST = [
+  {d:'02 Feb 2026', t:'Passport created from BIM', s:'Auto-generated from IFC model — 24 attributes populated', dot:'var(--charcoal-300)'},
+  {d:'14 Mar 2026', t:'Installed', s:'Meridian MEP Ltd · installation evidence attached', dot:'var(--charcoal-300)'},
+  {d:'20 Mar 2026', t:'QA inspection', s:'Passed with 1 observation', dot:'var(--charcoal-300)'},
+  {d:'25 Mar 2026', t:'Defect identified — NCR-102', s:'Duct connection sealing', dot:'var(--amber-500)'},
+  {d:'28 Mar 2026', t:'Defect resolved', s:'Verified by QA/QC manager', dot:'var(--charcoal-300)'},
+  {d:'03 Apr 2026', t:'Commissioned', s:'Test certificate CX-4471 attached', dot:'var(--teal-500)'}
+];
+const HIST_NEW = [
+  {d:'12 Apr 2026', t:'AI insight raised', s:'Possible installation-related corrosion at supply connection', dot:'var(--amber-500)'},
+  {d:'12 Apr 2026', t:'Inspection completed', s:'Field technician · 6 checks, 1 AI finding accepted', dot:'var(--charcoal-300)'},
+  {d:'12 Apr 2026', t:'Issue created — NCR-118', s:'High severity · assigned to Meridian MEP Ltd', dot:'var(--color-error)'},
+  {d:'14 Apr 2026', t:'Repair completed', s:'Corrosion treated, flexible connection re-sealed', dot:'var(--charcoal-300)'},
+  {d:'15 Apr 2026', t:'Re-inspection passed', s:'Evidence: 4 photos, before / after pair', dot:'var(--charcoal-300)'},
+  {d:'15 Apr 2026', t:'Warranty certificate uploaded', s:'Carrier — valid to 14 Mar 2031', dot:'var(--charcoal-300)'},
+  {d:'15 Apr 2026', t:'DAP updated — ready for handover', s:'Completeness 96% → 100%', dot:'var(--teal-500)'}
+];
+const STAGES = [
+  {name:'Issue detected', owner:'Graviq AI'},
+  {name:'AI assessment', owner:'Graviq AI'},
+  {name:'Assign contractor', owner:'J. Mercer (PM)'},
+  {name:'Repair', owner:'Meridian MEP Ltd'},
+  {name:'Inspection', owner:'Field technician'},
+  {name:'Verification', owner:'QA/QC manager'},
+  {name:'Close issue', owner:'J. Mercer (PM)'},
+  {name:'Update passport', owner:'Graviq — automatic'}
+];
+const ASSETS = [
+  {id:'AHU-042', name:'Air Handling Unit', type:'HVAC', loc:'L3-Z4', room:'Mechanical Room', status:'Commissioned', tone:'brand', dap:'96%', issues:1},
+  {id:'Duct-031', name:'Supply ductwork run', type:'HVAC', loc:'L3-Z4', room:'Mechanical Room', status:'Missing info', tone:'error', dap:'42%', issues:1},
+  {id:'SEN-082', name:'Air quality sensor', type:'Controls', loc:'L3-Z4', room:'Room 31', status:'Active', tone:'success', dap:'74%', issues:0},
+  {id:'FCU-118', name:'Fan coil unit', type:'HVAC', loc:'L3-Z2', room:'Room 31', status:'Active', tone:'success', dap:'88%', issues:0},
+  {id:'EP-021', name:'Electrical panel', type:'Electrical', loc:'L2', room:'Riser 3B', status:'Commissioned', tone:'brand', dap:'100%', issues:0},
+  {id:'P-103', name:'Chilled water pump', type:'Mechanical', loc:'B1', room:'Plant Room 2', status:'Installed', tone:'warning', dap:'81%', issues:2}
+];
+const NAV = [
+  {key:'home', label:'Home', screen:'home'},
+  {key:'projects', label:'Projects', screen:'building'},
+  {key:'assets', label:'Assets', screen:'register'},
+  {key:'map', label:'Map', screen:'map'},
+  {key:'bim', label:'BIM vs reality', screen:'bim'},
+  {key:'workflows', label:'Workflows', screen:'workflow'},
+  {key:'inspections', label:'Inspections', screen:'inspect'},
+  {key:'issues', label:'Issues', screen:'issue'},
+  {key:'handover', label:'Handover', screen:'handover'},
+  {key:'analytics', label:'Analytics', screen:null},
+  {key:'admin', label:'Administration', screen:null}
+];
+const TABS = ['Overview','Specifications','Design','Construction','Commissioning','Maintenance','Documents','Evidence','History','AI insights','Relationships'];
+const STEPS = [
+  {label:'1 · Dashboard', screen:'home'},
+  {label:'2 · Locate', screen:'building'},
+  {label:'3 · Passport', screen:'dap'},
+  {label:'4 · Inspect', screen:'inspect'},
+  {label:'5 · Issue', screen:'issue'},
+  {label:'6 · Workflow', screen:'workflow'},
+  {label:'7 · Updated passport', screen:'dap'},
+  {label:'8 · Handover', screen:'handover'}
+];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'login', dapTab: 0, resolved: false, aiOpen: false, finding: false,
+    stage: 0, mapPop: false, toast: null, toastTone: 'info',
+    checked: [true, true, true, false, true, false],
+    sel: {b:'Building A', f:'Floor 3', z:'Zone 4', r:'Mechanical Room'}
+  };
+
+  componentDidMount() {
+    const s = this.props.startScreen;
+    if (s && s !== 'login') this.setState({screen: s});
+    if (this.props.resolvedFromStart) this.setState({resolved: true, stage: STAGES.length});
+  }
+  componentDidUpdate(prev) {
+    if (prev.startScreen !== this.props.startScreen && this.props.startScreen) {
+      this.setState({screen: this.props.startScreen});
+    }
+    if (prev.resolvedFromStart !== this.props.resolvedFromStart) {
+      this.setState({resolved: !!this.props.resolvedFromStart});
+    }
+  }
+
+  go = (screen, extra) => { this.setState(Object.assign({screen: screen}, extra || {})); };
+  say = (msg, tone) => {
+    this.setState({toast: msg, toastTone: tone || 'info'});
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({toast: null}), 3600);
+  };
+
+  navStyle(active, muted) {
+    return 'padding:9px 12px;border-radius:9px;font-size:13px;font-weight:600;cursor:' +
+      (muted ? 'default' : 'pointer') + ';color:' +
+      (active ? '#fff' : muted ? 'var(--charcoal-500)' : 'var(--charcoal-200)') +
+      ';background:' + (active ? 'var(--teal-600)' : 'transparent') + ';transition:background 160ms ease';
+  }
+  pickStyle(active) {
+    return 'padding:8px 11px;border-radius:8px;font-size:13px;cursor:pointer;margin-bottom:2px;font-weight:' +
+      (active ? '600' : '400') + ';color:' + (active ? 'var(--teal-700)' : 'var(--text-primary)') +
+      ';background:' + (active ? 'var(--teal-50)' : 'transparent');
+  }
+
+  renderVals() {
+    const st = this.state, screen = st.screen, resolved = st.resolved;
+    const dapScreen = screen === 'dap';
+    const stepIndex = resolved && dapScreen ? 6 :
+      screen === 'home' ? 0 :
+      (screen === 'building' || screen === 'map' || screen === 'bim' || screen === 'register') ? 1 :
+      dapScreen ? 2 : screen === 'inspect' ? 3 : screen === 'issue' ? 4 :
+      screen === 'workflow' ? 5 : screen === 'handover' ? 7 : -1;
+
+    const openIssues = resolved ? 0 : 1;
+    const stage = st.stage;
+    const atLast = stage >= STAGES.length - 1;
+
+    const mkAsset = (a) => Object.assign({}, a, {
+      issueColor: a.issues ? 'var(--color-error)' : 'var(--text-tertiary)',
+      dap: a.id === 'AHU-042' && resolved ? '100%' : a.dap,
+      issues: a.id === 'AHU-042' && resolved ? 0 : a.issues,
+      status: a.id === 'AHU-042' && resolved ? 'Handover ready' : a.status,
+      onClick: () => {
+        if (a.id === 'AHU-042') this.go('dap', {dapTab: 0});
+        else this.say(a.id + ' has a passport too — only AHU-042 is populated in this prototype.');
+      }
+    });
+
+    const completeness = [
+      {label:'Identity', pct:'100%'},
+      {label:'Location', pct:'100%'},
+      {label:'Design', pct: resolved ? '100%' : '90%'},
+      {label:'Construction', pct:'100%'},
+      {label:'Commissioning', pct:'100%'},
+      {label:'Warranty', pct: resolved ? '100%' : '80%'},
+      {label:'Maintenance', pct:'100%'}
+    ].map(c => Object.assign(c, {color: c.pct === '100%' ? 'var(--teal-500)' : 'var(--amber-500)'}));
+
+    const insights = resolved ? [
+      {kind:'Resolved', tone:'success', title:'Corrosion finding closed', body:'NCR-118 was repaired on 14 Apr 2026 and verified on re-inspection. No further anomalies detected in the latest evidence set.', action:'None — asset is monitored on the quarterly PPM cycle.', showCta:false,
+       style:'padding:18px 20px;border-radius:14px;border:1px solid var(--border-brand);background:var(--teal-50)',
+       ctaStyle:'display:none'},
+      {kind:'Complete', tone:'success', title:'Information set complete', body:'All required attributes, documents and certificates for asset type Air Handling Unit are present. This passport now satisfies the Level 3 handover template.', action:'Include in the Level 3 HVAC handover package.', showCta:false,
+       style:'padding:18px 20px;border-radius:14px;border:1px solid var(--border-default);background:var(--surface-card)',
+       ctaStyle:'display:none'}
+    ] : [
+      {kind:'Defect risk', tone:'warning', title:'AHU-042 may have installation-related corrosion', body:'Image analysis of the most recent site capture shows discolouration and pitting at the flexible supply connection. The same pattern appears on 3 other Meridian MEP installations on Level 3.', action:'Inspect the supply connection and raise a defect if confirmed.', showCta:true,
+       style:'padding:18px 20px;border-radius:14px;border:1.5px solid var(--amber-300);background:var(--amber-50)',
+       ctaStyle:'display:flex;gap:8px;margin-top:14px;flex-wrap:wrap'},
+      {kind:'Missing info', tone:'error', title:'Warranty certificate missing', body:'The Carrier warranty document has not been attached, so warranty completeness sits at 80%. Missing warranty evidence is currently the largest single blocker across Level 3.', action:'Upload the warranty certificate, or request it from Carrier UK.', showCta:false,
+       style:'padding:18px 20px;border-radius:14px;border:1px solid var(--border-default);background:var(--surface-card)',
+       ctaStyle:'display:none'}
+    ];
+
+    const docs = [
+      {name:'O&M-manual-AHU.pdf', type:'Manual', added:'14 Mar 2026', status:'Verified', tone:'success'},
+      {name:'CX-4471.pdf', type:'Certificate', added:'03 Apr 2026', status:'Verified', tone:'success'},
+      {name:'M-303-rev-C.dwg', type:'Drawing', added:'02 Feb 2026', status:'Verified', tone:'success'},
+      {name:'QA-report-0320.pdf', type:'Report', added:'20 Mar 2026', status:'Verified', tone:'success'},
+      resolved
+        ? {name:'warranty-carrier.pdf', type:'Warranty', added:'15 Apr 2026', status:'Verified', tone:'success'}
+        : {name:'warranty-carrier.pdf', type:'Warranty', added:'—', status:'Missing', tone:'error'}
+    ].map(d => Object.assign(d, {color: d.status === 'Missing' ? 'var(--color-error)' : 'var(--text-brand)'}));
+
+    const evidence = [
+      {label:'INSTALL PHOTO 1', tag:'14 Mar', color:'var(--text-tertiary)'},
+      {label:'INSTALL PHOTO 2', tag:'14 Mar', color:'var(--text-tertiary)'},
+      {label:'QA PHOTO', tag:'20 Mar', color:'var(--text-tertiary)'},
+      {label:'CX TEST VIDEO', tag:'03 Apr', color:'var(--text-tertiary)'},
+      {label:'CORROSION CLOSE-UP', tag:'AI FLAGGED', color:'var(--amber-600)'}
+    ];
+    if (resolved) {
+      evidence.push({label:'REPAIR — BEFORE', tag:'14 Apr', color:'var(--text-tertiary)'});
+      evidence.push({label:'REPAIR — AFTER', tag:'14 Apr', color:'var(--teal-600)'});
+      evidence.push({label:'RE-INSPECTION', tag:'15 Apr', color:'var(--teal-600)'});
+    }
+
+    const rooms = ['Mechanical Room','Room 31','Riser 3B','Plant Room 2'];
+    const filtered = ASSETS.filter(a => a.room === st.sel.r).map(mkAsset);
+
+    return {
+      atLogin: screen === 'login',
+      inApp: screen !== 'login',
+      atHome: screen === 'home', atBuilding: screen === 'building', atRegister: screen === 'register',
+      atMap: screen === 'map', atBim: screen === 'bim', atDap: dapScreen,
+      atInspect: screen === 'inspect', atIssue: screen === 'issue',
+      atWorkflow: screen === 'workflow', atHandover: screen === 'handover',
+      guided: this.props.guidedDemo !== false,
+      resolved: resolved, notResolved: !resolved,
+      readyBannerStyle: resolved
+        ? 'padding:14px 18px;border-radius:var(--radius-lg);background:var(--teal-600);color:#fff;display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px'
+        : 'display:none',
+      missingInfoStyle: resolved
+        ? 'display:none'
+        : 'padding:14px 16px;border-radius:12px;background:var(--amber-50);border:1px solid var(--amber-200);font-size:13px;line-height:1.55',
+      hintStyle: st.finding ? 'display:none' : 'font-size:12.5px;color:var(--text-secondary)',
+      findingStyle: st.finding
+        ? 'padding:16px 18px;border-radius:14px;background:var(--amber-50);border:1.5px solid var(--amber-300);display:flex;flex-direction:column;gap:10px'
+        : 'display:none',
+      mapPopStyle: st.mapPop
+        ? 'background:var(--surface-card);border:1.5px solid var(--border-brand);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:18px;display:flex;flex-direction:column;gap:8px'
+        : 'display:none',
+      aiOpen: st.aiOpen, mapPop: st.mapPop,
+      toast: st.toast, toastTone: st.toastTone,
+      clearToast: () => this.setState({toast: null}),
+
+      signIn: () => this.go('home'),
+      goHome: () => this.go('home'),
+      goBuilding: () => this.go('building'),
+      goRegister: () => this.go('register'),
+      goMap: () => this.go('map'),
+      goBim: () => this.go('bim'),
+      goDap: () => this.go('dap', {dapTab: 0}),
+      goDapInsights: () => this.go('dap', {dapTab: 9}),
+      goDapDesign: () => this.go('dap', {dapTab: 2}),
+      goInspect: () => this.go('inspect', {finding: false}),
+      goIssue: () => this.go('issue'),
+      goWorkflow: () => this.go('workflow'),
+      goHandover: () => this.go('handover'),
+      toggleAI: () => this.setState({aiOpen: !st.aiOpen}),
+      openSearch: () => this.say('Global search: “AHU-042” → Asset · Location · Status · Open issues · Last inspection.'),
+      openMapPin: () => this.setState({mapPop: true}),
+      takePhoto: () => { this.setState({finding: true}); this.say('PHOTO-4 captured — Graviq is analysing the image.'); },
+      startWorkflow: () => this.go('workflow', {stage: 2}),
+      relOther: () => this.say('Related passports are stubs in this prototype — AHU-042 carries the full record.'),
+      relNodeStyle: 'padding:11px 18px;border-radius:12px;border:1px solid var(--border-strong);background:var(--surface-card);font-family:var(--font-mono);font-size:12.5px;font-weight:600;cursor:pointer;text-align:center;box-shadow:var(--shadow-sm)',
+      relWorkflows: resolved ? 'NCR-118 (closed) · Annual maintenance (scheduled)' : 'NCR-118 (open) · Commissioning (closed)',
+
+      nav: NAV.map(n => {
+        const active = n.screen === screen || (n.key === 'assets' && dapScreen);
+        return {
+          label: n.label,
+          style: this.navStyle(active, !n.screen),
+          onClick: n.screen ? () => this.go(n.screen) : () => this.say(n.label + ' is out of scope for this prototype.')
+        };
+      }),
+      steps: STEPS.map((s, i) => ({
+        label: s.label,
+        style: 'padding:5px 11px;border-radius:99px;font-size:11.5px;font-weight:600;white-space:nowrap;cursor:pointer;flex:none;color:' +
+          (i === stepIndex ? '#fff' : 'var(--text-secondary)') + ';background:' +
+          (i === stepIndex ? 'var(--teal-600)' : 'var(--charcoal-50)') + ';border:1px solid ' +
+          (i === stepIndex ? 'var(--teal-600)' : 'var(--border-default)'),
+        onClick: () => {
+          if (i === 6) this.setState({screen: 'dap', dapTab: 8, resolved: true, stage: STAGES.length});
+          else if (i === 2) this.go('dap', {dapTab: 0});
+          else this.go(s.screen);
+        }
+      })),
+
+      kpis: [
+        {label:'Total assets', value:'2,486', sub:'Building A–C', screen:'register', color:'var(--text-primary)'},
+        {label:'DAP completion', value: resolved ? '92%' : '91%', sub:'+2 pts this week', screen:'register', color:'var(--teal-600)'},
+        {label:'Open issues', value: resolved ? '46' : '47', sub:'12 overdue', screen:'issue', color:'var(--text-primary)'},
+        {label:'Critical issues', value: resolved ? '5' : '6', sub:'needs approval', screen:'issue', color:'var(--color-error)'},
+        {label:'Commissioning', value:'82%', sub:'Level 3 lagging', screen:'handover', color:'var(--text-primary)'},
+        {label:'Handover readiness', value: resolved ? '78%' : '76%', sub:'target 95%', screen:'handover', color:'var(--amber-600)'}
+      ].map(k => Object.assign(k, {
+        style:'background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:16px 18px;cursor:pointer;transition:box-shadow 160ms ease',
+        onClick: () => this.go(k.screen)
+      })),
+
+      issues: [
+        {priority:'Critical', tone:'error', title: resolved ? 'Duct-031 missing from site — not installed' : 'Possible corrosion at AHU-042 supply connection', asset: resolved ? 'Duct-031' : 'AHU-042', owner:'Meridian MEP', due:'19 Apr', onClick: () => this.go('dap', {dapTab: 9})},
+        {priority:'High', tone:'warning', title:'12 critical assets missing commissioning certificates', asset:'Level 3', owner:'S. Okafor', due:'22 Apr', onClick: () => this.go('handover')},
+        {priority:'High', tone:'warning', title:'Pipe-107 specification mismatch (DN80 vs DN100)', asset:'Pipe-107', owner:'Meridian MEP', due:'25 Apr', onClick: () => this.go('bim')},
+        {priority:'Medium', tone:'neutral', title:'34 assets missing warranty information', asset:'Building A', owner:'H. Patel', due:'30 Apr', onClick: () => this.go('handover')}
+      ],
+
+      buildings: ['Building A','Building B','Building C'].map(b => ({label:b, style:this.pickStyle(st.sel.b===b), onClick:()=>this.setState({sel:Object.assign({},st.sel,{b:b})})})),
+      floors: ['Basement 1','Level 2','Floor 3','Floor 4'].map(f => ({label:f, style:this.pickStyle(st.sel.f===f), onClick:()=>this.setState({sel:Object.assign({},st.sel,{f:f})})})),
+      zones: ['Zone 1','Zone 2','Zone 3','Zone 4'].map(z => ({label:z, style:this.pickStyle(st.sel.z===z), onClick:()=>this.setState({sel:Object.assign({},st.sel,{z:z})})})),
+      rooms: rooms.map(r => ({label:r, style:this.pickStyle(st.sel.r===r), onClick:()=>this.setState({sel:Object.assign({},st.sel,{r:r})})})),
+      selPath: st.sel.b + ' → ' + st.sel.f + ' → ' + st.sel.z + ' → ' + st.sel.r,
+      filtered: filtered,
+      filteredCount: filtered.length,
+      assets: ASSETS.map(mkAsset),
+      chips: ['Type: HVAC','Building A','Level 3','DAP < 100%','Has open issues','Warranty missing'].map(c => ({
+        label: c,
+        style:'padding:6px 12px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface-card);font-size:12px;color:var(--text-secondary)'
+      })),
+      layers: ['Assets','Issues','Inspections','Workflows','Progress','BIM'].map((l, i) => ({
+        label: l,
+        style:'padding:5px 11px;border-radius:99px;font-size:11.5px;font-weight:600;border:1px solid ' +
+          (i < 2 ? 'var(--teal-500)' : 'var(--border-strong)') + ';color:' +
+          (i < 2 ? 'var(--teal-700)' : 'var(--text-secondary)') + ';background:' +
+          (i < 2 ? 'var(--teal-50)' : 'var(--surface-card)') + ';cursor:pointer'
+      })),
+
+      dapTabs: TABS,
+      dapTab: st.dapTab,
+      setDapTab: (i) => this.setState({dapTab: i}),
+      tabOverview: st.dapTab === 0, tabSpecs: st.dapTab === 1, tabDesign: st.dapTab === 2,
+      tabConstruction: st.dapTab === 3, tabCommissioning: st.dapTab === 4, tabMaintenance: st.dapTab === 5,
+      tabDocuments: st.dapTab === 6, tabEvidence: st.dapTab === 7, tabHistory: st.dapTab === 8,
+      tabAI: st.dapTab === 9, tabRel: st.dapTab === 10,
+
+      dapPct: resolved ? '100%' : '96%',
+      openIssues: openIssues,
+      statusLabel: resolved ? 'Handover ready' : 'Commissioned',
+      statusTone: resolved ? 'success' : 'brand',
+      qaLabel: resolved ? 'Verified' : 'Open finding',
+      lastInspected: resolved ? '15 Apr 2026' : '12 Apr 2026',
+      riskLabel: resolved ? 'Low' : 'Medium',
+      riskColor: resolved ? 'var(--teal-600)' : 'var(--amber-600)',
+      stageLabel: resolved ? 'Handover' : 'Commissioning',
+      aiConfidence: resolved ? '—' : '0.87',
+      completeness: completeness,
+      insights: insights,
+      docs: docs,
+      evidence: evidence,
+      evidenceCount: evidence.length,
+      history: resolved ? HIST.concat(HIST_NEW) : HIST,
+      specs: [
+        {k:'Manufacturer', v:'Carrier UK'}, {k:'Model', v:'39MN-0842'},
+        {k:'Serial number', v:'7741-2209'}, {k:'Supply airflow', v:'4,200 l/s'},
+        {k:'Cooling capacity', v:'180 kW'}, {k:'Power', v:'11 kW / 400 V'},
+        {k:'Dimensions', v:'3,200 × 1,800 × 1,650 mm'}, {k:'Weight', v:'1,140 kg'},
+        {k:'Filter class', v:'ePM1 60%'}, {k:'Asset type template', v:'AssetDNA · Air Handling Unit'}
+      ],
+
+      stages: STAGES.map((s, i) => {
+        const done = i < stage, current = i === stage;
+        return {
+          name: s.name, owner: s.owner,
+          mark: done ? '✓' : current ? '›' : '',
+          weight: current ? '700' : '500',
+          fg: done ? 'var(--text-secondary)' : 'var(--text-primary)',
+          dotBg: done ? 'var(--teal-500)' : current ? 'var(--amber-500)' : 'transparent',
+          dotFg: done || current ? '#fff' : 'var(--text-tertiary)',
+          dotBorder: done ? 'var(--teal-500)' : current ? 'var(--amber-500)' : 'var(--border-strong)',
+          badge: done ? 'Complete' : current ? 'In progress' : 'Waiting'
+        };
+      }),
+      advanceLabel: atLast ? 'Update passport & close' : 'Advance stage',
+      nextActionLabel: atLast
+        ? 'Graviq writes the evidence, certificate and status back to AHU-042.'
+        : 'Next: ' + (STAGES[stage + 1] ? STAGES[stage + 1].name : '—'),
+      slaLabel: atLast ? 'On time' : '3 days left',
+      advance: () => {
+        if (atLast) {
+          this.setState({resolved: true, screen: 'dap', dapTab: 8, stage: STAGES.length});
+          this.say('AHU-042 passport updated — completeness 96% → 100%, handover readiness 76% → 78%.', 'success');
+        } else {
+          this.setState({stage: stage + 1});
+        }
+      },
+
+      handoverPct: resolved ? '78%' : '76%',
+      deltaLabel: resolved ? '▲ from 76%' : 'target 95%',
+      deltaColor: resolved ? 'var(--teal-200)' : 'var(--charcoal-300)',
+      handoverNote: resolved
+        ? 'AHU-042 cleared. 11 critical assets still missing commissioning certificates.'
+        : '3 blocker groups are holding Level 3 back. Graviq can start the right workflow for each.',
+      handoverBars: [
+        {label:'Asset information', pct: resolved ? '92%' : '91%'},
+        {label:'QA / QC', pct: resolved ? '89%' : '88%'},
+        {label:'Commissioning', pct:'82%'},
+        {label:'Documents', pct: resolved ? '75%' : '73%'},
+        {label:'Warranty', pct: resolved ? '71%' : '69%'}
+      ].map(b => Object.assign(b, {color: parseInt(b.pct) >= 85 ? 'var(--teal-500)' : 'var(--amber-500)'})),
+      blockers: (resolved ? [
+        {label:'11 critical assets missing commissioning certificates', sev:'Critical', tone:'error', action:'Start workflow'},
+        {label:'33 assets missing warranty information', sev:'High', tone:'warning', action:'Request documents'},
+        {label:'6 unresolved critical defects', sev:'Critical', tone:'error', action:'View issues'}
+      ] : [
+        {label:'12 critical assets missing commissioning certificates', sev:'Critical', tone:'error', action:'Start workflow'},
+        {label:'34 assets missing warranty information', sev:'High', tone:'warning', action:'Request documents'},
+        {label:'7 unresolved critical defects — incl. AHU-042', sev:'Critical', tone:'error', action:'View AHU-042'}
+      ]).map(b => Object.assign(b, {onClick: () => this.go('dap', {dapTab: 9})})),
+
+      checks: ['No visible damage','Labels present','Installation correct','Connections secure','Safety requirements met','Cleanliness acceptable'].map((label, i) => ({
+        label: label,
+        checked: !!st.checked[i],
+        onChange: () => {
+          const next = st.checked.slice();
+          next[i] = !next[i];
+          this.setState({checked: next});
+        }
+      })),
+      finding: st.finding, notFinding: !st.finding,
+      issueTypes: ['Defect','Deviation','Missing information','Safety','Quality','Commissioning'],
+      severities: ['Critical','High','Medium','Low'],
+      assignees: ['Meridian MEP Ltd','Carrier UK','Internal QA/QC','Facilities team'],
+      aiAnswer: resolved
+        ? '12 HVAC assets on Level 3 still have incomplete commissioning, and 33 assets are missing warranty documents. AHU-042 is now clear. Recommended action: assign a commissioning workflow to the MEP contractor.'
+        : '12 HVAC assets on Level 3 have incomplete commissioning; 4 are critical. AHU-042 also has an open AI-detected defect risk and no warranty certificate. Recommended action: inspect AHU-042, then assign a commissioning workflow to the MEP contractor.'
+    };
+  }
+}
+
+</script>
+</body>
+</html>
